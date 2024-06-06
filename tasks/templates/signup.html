@@ -1,13 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Register Form</h1>
+ 
+<main class="container">
+  <div class="row"> 
+    <div class="col-md-6 offset-md-3 mt-5"> 
+      <form class="card card-body" action="/signup/" method="POST">
+          <h1 class="text-center">Register Form</h1>
 
-  {{ error }}
+          {{ error }}
 
-  <form action="/signup/" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button>Register</button>
-  </form>
+          {% csrf_token %}
+        
+          <div class="mb-3">  
+          <label for="username">Username:</label>
+            <input id="username" type="text" name="username" class="form-control"
+            placeholder="Please enter your User Name">
+          </div>
+
+          <div class="mb-3">  
+              <label for="password1">Password:</label>
+                <input id="password1" type="password" name="password1" class="form-control"
+                placeholder="Please enter the password">
+          </div>
+
+          <div class="mb-3">  
+            <label for="password2">Confirm your Password:</label>
+              <input id="password2" type="password" name="password2" class="form-control"
+              placeholder="Please Confirm your password">
+          </div>
+
+          {% comment %} {{ form.as_table }} {% endcomment %}
+      
+      
+          <button class="btn btn-dark">Register</button>
+      </form>
+    </div>
+  </div>
+</main>
 {% endblock %}
