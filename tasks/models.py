@@ -1,8 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-
+class Usuarios(models.Model):
+    # Campos de texto
+    nombre_usuario = models.CharField(max_length=30, unique=True)
+    nombre = models.CharField(max_length=50)
+    apellidos = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
+    telefono = models.CharField(max_length=20)
+    fecha_nacimiento = models.DateField()
+    ultimo_login = models.DateTimeField(auto_now=True)
+    esta_activa = models.BooleanField(default=True)
+    es_personal = models.BooleanField(default=False)
+    OPCIONES_ROL = [
+        ('Personal', 'Personal Use'),
+        ('Enterprise', 'Enterprise'),
+    ]
+    roles = models.CharField(max_length=11, choices=OPCIONES_ROL, default='Personal')
+    
 class Task(models.Model):
     # campos
     title = models.CharField(max_length=200)

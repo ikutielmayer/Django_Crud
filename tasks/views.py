@@ -5,11 +5,10 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import TaskForm
+from .forms import UsuarioForm
 from .models import Task
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-
-# Create your views here.
 
 def home(request):
     return render(request, 'home.html')
@@ -47,6 +46,41 @@ def delete_task(request, task_id):
         task.delete()
         return redirect('tasks')
 
+@login_required
+def profile(request):
+    if request.method == 'POST':
+         try:
+            form = UsuarioForm(request.POST)
+            if form.is_valid():
+                form.save()
+                login(request, user)
+                return redirect('tasks')
+         except IntegrityError:
+                return render(request, 'register.html', {
+                    'form': UserCreationForm,
+                    'error': 'Please Check you information'})
+                # return HttpResponse('UserName already exist')
+    else:
+        form = UsuarioForm()
+    return render(request, 'register.html', {'form': form})
+    
+def register(request):
+    if request.method == 'POST':
+         try:
+            form = UsuarioForm(request.POST)
+            if form.is_valid():
+                form.save()
+                login(request, user)
+                return redirect('tasks')
+         except IntegrityError:
+                return render(request, 'register.html', {
+                    'form': UserCreationForm,
+                    'error': 'Please Check you information'})
+                # return HttpResponse('UserName already exist')
+    else:
+        form = UsuarioForm()
+    return render(request, 'register.html', {'form': form})
+
 def signup(request):
 
     if request.method == 'GET':
@@ -80,7 +114,6 @@ def tasks(request):
 
 @login_required
 def tasks_completed(request):
-    # tasks = Task.objects.all()  # Devuelve todas las tareas de la DB
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
     return render(request, 'tasks.html', {'tasks': tasks})
 

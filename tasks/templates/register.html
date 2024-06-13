@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+<main class="container">
+  <div class="row"> 
+    <div class="col-md-6 offset-md-3 mt-5"> 
+         <form class="card card-body" action="/register/" method="POST">
+          <h1 class="text-center">Register Form</h1>
+
+          {{ error }}
+
+            {% csrf_token %}
+            <div class="mb-3"> 
+                <label for="nombre_usuario">Username:</label>
+                <input id="nombre_usuario" type="text" name="nombre_usuario" class="form-control"
+                placeholder="Please enter your User Name" required>
+            </div>
+            <div class="mb-3"> 
+                <label for="nombre">Name:</label>
+                  <input id="nombre" type="text" name="nombre" class="form-control"
+                placeholder="Please enter your First Name" required>
+             </div>
+
+            <div class="mb-3"> 
+                <label for="apellidos">Surname:</label>
+                  <input id="apellidos" type="text" name="apellidos" class="form-control"
+                placeholder="Please enter your Surname" required>
+             </div>
+
+            <div class="mb-3"> 
+                <label for="email">Email:</label>
+                <input id="email" type="text" name="email" class="form-control"
+                placeholder="Please enter your Email" required>
+             </div>
+
+            <div class="mb-3"> 
+                <label for="telefono">Phone:</label>
+                <input id="telefono" type="phone" name="telefono" class="form-control"
+                placeholder="Please enter your phone number">
+             </div>
+
+            <div class="mb-3"> 
+                <label for="fecha_nacimiento">Birthday:</label>
+                 <input id="fecha_nacimiento" type="date" name="fecha_nacimiento" class="form-control"
+                placeholder="Please enter your Birthday" required>
+             </div>
+
+            <div class="mb-3"> 
+                <label for="roles">Role:</label>
+                <select name="roles" class="form-control">
+                <option value="Personal">Personal</option>
+                <option value="Enterprise">Enterprise</option>
+                </select>
+            </div>
+
+            <button class="btn btn-dark">Register</button>
+  
+        </form>
+         </div>
+  </div>
+</main>
+{% endblock %}
