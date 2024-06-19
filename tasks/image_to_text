@@ -1,18 +1,18 @@
 import pytesseract
 import cv2
 
-image = cv2.imread("tasks/templates/media/temp/image_with_border.jpg")
+image = cv2.imread("tasks/templates/media/mezuza.png")
 base_image = image.copy()
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imwrite("tasks/templates/media/temp/index_gray.png", gray)
 
-blur = cv2.GaussianBlur(gray, (7,7), 0)
+blur = cv2.GaussianBlur(gray, (3,3), 0)
 cv2.imwrite("tasks/templates/media/temp/index_blur.png", blur)
 
 thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 cv2.imwrite("tasks/templates/media/temp/index_thresh.png", thresh)
 
-kernal = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 13))
+kernal = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 cv2.imwrite("tasks/templates/media/temp/index_kernal.png", kernal)
 
 dilate = cv2.dilate(thresh, kernal, iterations=1)
