@@ -1,7 +1,7 @@
 import cv2
 import pytesseract
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
 
 # Gray Scale
 def convert_grayscale(img):
@@ -18,6 +18,8 @@ def threshold(img):
     img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
     return img
 
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 # Cargar imagen
 img = cv2.imread("tasks/templates/media/temp/bw_image.jpg")
 h, w, c = img.shape
